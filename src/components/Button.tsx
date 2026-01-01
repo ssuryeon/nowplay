@@ -1,4 +1,4 @@
-import {styled} from 'styled-components';
+import styled from 'styled-components';
 
 interface IButton {
     text: string,
@@ -20,6 +20,7 @@ const Btn = styled.button`
 `;
 
 function Button({text, fontSize}:IButton) {
+
     return (
         <Btn style={{fontSize}}>{text}</Btn>
     );
