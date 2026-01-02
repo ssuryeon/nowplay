@@ -53,7 +53,7 @@ function Main(){
                 <Tab text="저장된 플리" isActive={storedMatch != null}/>
                 <Tab text="프로필" isActive={profileMatch != null}/>
             </Menu>
-            <Container style={{marginTop: 20, flex: 1, boxSizing: 'border-box'}}>
+            <Container style={{marginTop: 20, height: 480, boxSizing: 'border-box'}}>
                 <Outlet />
             </Container>
         </div>

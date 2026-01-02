@@ -3,6 +3,7 @@ import styled from 'styled-components';
 interface IButton {
     text: string,
     fontSize: number,
+    style?: Object,
 }
 
 const Btn = styled.button`
@@ -19,10 +20,10 @@ const Btn = styled.button`
     }
 `;
 
-function Button({text, fontSize}:IButton) {
+function Button({text, fontSize, style}:IButton) {
 
     return (
-        <Btn style={{fontSize}}>{text}</Btn>
+        <Btn style={{fontSize, ...style}}>{text}</Btn>
     );
 }
 
