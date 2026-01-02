@@ -14,7 +14,8 @@ export default meta;
 export const Primary:StoryObj = {
     name: 'Button',
     args: {
-        backgroundColor: "#6a7566",
+        backgroundColor: "#000000",
         text: "test",
+        style: {}
     },
 }
