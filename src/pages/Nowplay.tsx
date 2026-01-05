@@ -1,6 +1,7 @@
 import styled, {useTheme} from 'styled-components';
 import PlaylistItem from '../components/PlaylistItem';
 import Button from '../components/Button';
+import SearchInput from '../components/SearchInput';
 
 const LeftContainer = styled.div`
     flex: 1;
@@ -38,12 +39,13 @@ function Nowplay(){
     return (
         <div style={{width: '100%', height: '100%', display: 'flex', flexDirection: 'row'}}>
             <LeftContainer>
-                <PlaylistItem text='케이팝 플리' people={15} isActive={true}/>
-                <PlaylistItem text='케이팝 플리' people={15} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} isActive={false}/>
+                <SearchInput />
+                <PlaylistItem text='케이팝 플리' people={15} likes={216} isActive={true}/>
+                <PlaylistItem text='케이팝 플리' people={155} likes={333} isActive={false}/>
+                <PlaylistItem text='케이팝 플리' people={15} likes={78} isActive={false}/>
+                <PlaylistItem text='케이팝 플리' people={15} likes={104} isActive={false}/>
+                <PlaylistItem text='케이팝 플리' people={15} likes={23} isActive={false}/>
+                <PlaylistItem text='케이팝 플리' people={15} likes={134} isActive={false}/>
             </LeftContainer>
             <DetailContainer>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: 320, position: 'relative'}}>

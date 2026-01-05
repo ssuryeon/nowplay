@@ -12,7 +12,8 @@ export const Primary:StoryObj = {
     name: 'PlaylistItem',
     args: {
         text: 'test',
-        people: 20,
+        people: 200,
         isActive: false,
+        likes: 100,
     }
 }
