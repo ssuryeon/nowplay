@@ -5,6 +5,7 @@ import Main from './pages/Main';
 import Nowplay from './pages/Nowplay';
 import Rank from './pages/Rank';
 import Stored from './pages/Stored';
+import PlaylistRoom from './pages/PlaylistRoom';
 
 const router = createBrowserRouter([
   {
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
         path: 'profile',
       }
     ]
+  },
+  {
+    path: '/room',
+    Component: PlaylistRoom,
   }
 ]
 );

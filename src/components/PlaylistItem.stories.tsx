@@ -2,7 +2,7 @@ import PlaylistItem from './PlaylistItem';
 import {Meta, StoryObj} from '@storybook/react-webpack5';
 
 const meta:Meta = {
-    title: 'Components/PlaylistItem',
+    title: 'Nowplay/PlaylistItem',
     component: PlaylistItem,
 }
 

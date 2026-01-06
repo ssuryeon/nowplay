@@ -2,7 +2,7 @@ import Form from './Form';
 import {Meta, StoryObj} from '@storybook/react-webpack5';
 
 const meta:Meta = {
-    title: 'Components/Form',
+    title: 'Shared/Form',
     component: Form,
     decorators: [
         (Story) => (

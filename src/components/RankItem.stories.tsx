@@ -2,7 +2,7 @@ import {Meta, StoryObj} from '@storybook/react-webpack5';
 import RankItem from './RankItem';
 
 const meta:Meta = {
-    title: 'Components/RankItem',
+    title: 'Rank/RankItem',
     component: RankItem,
 }
 

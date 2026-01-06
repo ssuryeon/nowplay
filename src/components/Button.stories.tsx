@@ -2,7 +2,7 @@ import Button from './Button';
 import type {Meta, StoryObj} from '@storybook/react-webpack5';
 
 const meta:Meta = {
-    title: 'Components/Button',
+    title: 'Shared/Button',
     component: Button,
     argTypes: {
         backgroundColor: {control: 'color'},

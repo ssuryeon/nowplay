@@ -2,7 +2,7 @@ import Menu from './Menu';
 import {Meta, StoryObj} from '@storybook/react-webpack5';
 
 const meta:Meta = {
-    title: 'Components/Menu',
+    title: 'Main/Menu',
     component: Menu,
 }
 

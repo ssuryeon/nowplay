@@ -13,6 +13,7 @@ const ListContainer = styled.div`
     font-size: 20px;
     font-weight: 700;
     margin-bottom: 10px;
+    cursor: pointer;
 `;
 
 interface IPlaylistItem {

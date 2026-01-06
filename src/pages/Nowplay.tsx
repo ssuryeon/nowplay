@@ -41,11 +41,11 @@ function Nowplay(){
             <LeftContainer>
                 <SearchInput />
                 <PlaylistItem text='케이팝 플리' people={15} likes={216} isActive={true}/>
-                <PlaylistItem text='케이팝 플리' people={155} likes={333} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} likes={78} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} likes={104} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} likes={23} isActive={false}/>
-                <PlaylistItem text='케이팝 플리' people={15} likes={134} isActive={false}/>
+                <PlaylistItem text='재즈음악' people={155} likes={333} isActive={false}/>
+                <PlaylistItem text='플리1' people={15} likes={78} isActive={false}/>
+                <PlaylistItem text='플리2' people={15} likes={104} isActive={false}/>
+                <PlaylistItem text='플리3' people={15} likes={23} isActive={false}/>
+                <PlaylistItem text='플리4' people={15} likes={134} isActive={false}/>
             </LeftContainer>
             <DetailContainer>
                 <div style={{display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%', width: 320, position: 'relative'}}>

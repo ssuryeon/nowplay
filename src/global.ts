@@ -55,12 +55,28 @@ export const GlobalStyle = createGlobalStyle`
         src: url('./assets/fonts/Pretendard-Black.woff') format('woff'),
     }
 
+    html {
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
+    }
     body {
         background-color: #181C14;
-        font-family: 'Pretendard'
+        font-family: 'Pretendard';
+        padding: 0;
+        margin: 0;
+        width: 100vw;
+        height: 100vh;
+        box-sizing: border-box;
     }
     a {
         text-decoration: none;
         color: black;
+    }
+
+    #chat::-webkit-scrollbar {
+        display: none;
     }
 `;
