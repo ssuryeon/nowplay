@@ -3,6 +3,8 @@ import Home from './pages/Home';
 import SignUp from './pages/SignUp';
 import Main from './pages/Main';
 import Nowplay from './pages/Nowplay';
+import Rank from './pages/Rank';
+import Stored from './pages/Stored';
 
 const router = createBrowserRouter([
   {
@@ -23,9 +25,11 @@ const router = createBrowserRouter([
       },
       {
         path: 'rank',
+        Component: Rank,
       },
       {
         path: 'stored',
+        Component: Stored,
       },
       {
         path: 'profile',
