@@ -24,17 +24,18 @@ interface IForm {
     text: string,
     fontSize?: number,
     btnText: string,
+    register?: Object,
 }
 
-function BtnForm({text, fontSize, btnText}:IForm) {
+function BtnForm({text, fontSize, btnText, register}:IForm) {
     return (
-        <form style={{marginBottom: '15px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
+        <div style={{boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
             <TextArea>{text}</TextArea>
             <span style={{width: '100%', height: 80, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, boxSizing: 'border-box'}}>
-                <Input style={{fontSize: fontSize? fontSize : 20}}/>
+                <Input style={{fontSize: fontSize? fontSize : 20}} {...register}/>
                 <Button text={btnText} fontSize={24} style={{width: '15%', height: 80, boxSizing: 'border-box'}}/>
             </span>
-        </form>
+        </div>
     );
 }
 

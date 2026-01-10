@@ -23,14 +23,15 @@ const Input = styled.input`
 interface IForm {
     text: string,
     fontSize?: number,
+    register?: Object,
 }
 
-function Form({text, fontSize}:IForm) {
+function Form({text, fontSize, register}:IForm) {
     return (
-        <form style={{marginBottom: '15px', boxSizing: 'border-box'}}>
+        <div style={{boxSizing: 'border-box'}}>
             <TextArea>{text}</TextArea>
-            <Input style={{fontSize: fontSize? fontSize : 20}}/>
-        </form>
+            <Input style={{fontSize: fontSize? fontSize : 20}} {...register}/>
+        </div>
     );
 }
 
