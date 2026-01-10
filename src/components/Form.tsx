@@ -27,10 +27,10 @@ interface IForm {
 
 function Form({text, fontSize}:IForm) {
     return (
-        <div style={{marginBottom: '15px', boxSizing: 'border-box'}}>
+        <form style={{marginBottom: '15px', boxSizing: 'border-box'}}>
             <TextArea>{text}</TextArea>
             <Input style={{fontSize: fontSize? fontSize : 20}}/>
-        </div>
+        </form>
     );
 }
 

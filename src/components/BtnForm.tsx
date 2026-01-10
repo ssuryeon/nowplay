@@ -28,13 +28,13 @@ interface IForm {
 
 function BtnForm({text, fontSize, btnText}:IForm) {
     return (
-        <div style={{marginBottom: '15px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
+        <form style={{marginBottom: '15px', boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
             <TextArea>{text}</TextArea>
             <span style={{width: '100%', height: 80, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, boxSizing: 'border-box'}}>
                 <Input style={{fontSize: fontSize? fontSize : 20}}/>
                 <Button text={btnText} fontSize={24} style={{width: '15%', height: 80, boxSizing: 'border-box'}}/>
             </span>
-        </div>
+        </form>
     );
 }
 
