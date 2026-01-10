@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDocs } from "firebase/firestore";
+import { getFirestore, collection, getDoc, doc, setDoc } from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -19,11 +19,36 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 
-export async function getUsers() {
+// export async function getUsers() {
+//   const db = getFirestore(app);
+//   const userCol = collection(db, 'userinfo');
+//   const snapShot = await getDocs(userCol);
+//   snapShot.forEach((doc) => {
+//     console.log(`${doc.id}, ${doc.data()}`);
+//   })
+// }
+
+export async function checkDuplicate(username:string) {
   const db = getFirestore(app);
-  const userCol = collection(db, 'userinfo');
-  const snapShot = await getDocs(userCol);
-  snapShot.forEach((doc) => {
-    console.log(`${doc.id}, ${doc.data()}`);
-  })
+  const userRef = doc(db, 'userinfo', username);
+  const snapShot = await getDoc(userRef);
+  if(snapShot.exists()) return true;
+  else return false;
+}
+
+export interface IUser {
+  username: string,
+  id: string,
+  password: string,
+  confirmPassword: string,
+  email: string,
+  phone: string,
+}
+
+export async function insertUser(data:IUser) {
+  const db = getFirestore(app);
+  await setDoc(doc(db, 'userinfo', data.username), {
+    ...data
+  });
+  console.log(`${data.username} is inserted.`);
 }

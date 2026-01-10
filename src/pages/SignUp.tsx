@@ -4,6 +4,8 @@ import Form from '../components/Form';
 import BtnForm from '../components/BtnForm';
 import Button from '../components/Button';
 import {useForm} from 'react-hook-form';
+import {checkDuplicate, insertUser, IUser} from '../firebase';
+import React from 'react';
 
 const ErrorArea = styled.div`
     margin-top: 8px;
@@ -14,17 +16,8 @@ const ErrorArea = styled.div`
     color: ${props => props.theme.white};
 `;
 
-interface IUser {
-    username: string,
-    id: string,
-    password: string,
-    confirmPassword: string,
-    email: string,
-    phone: string,
-}
-
 function SignUp() {
-    const {register, handleSubmit, formState: {errors}, setError} = useForm({
+    const {register, handleSubmit, formState: {errors}, setError, watch} = useForm({
         defaultValues: {
             username: '',
             id: '',
@@ -34,13 +27,27 @@ function SignUp() {
             phone: '',
         }
     });
-    const onSubmit = (data:IUser) => {
+    const onSubmit = async (data:IUser) => {
         if(data.password != data.confirmPassword) {
             setError('confirmPassword', {
                 message: '비밀번호와 일치하지 않습니다.',
             }, {shouldFocus: true})
         }
-        console.log(data);
+        else {
+            console.log(data);
+            insertUser(data);
+        }
+    }
+    const username = watch('username');
+    const checkUsername = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
+        e.preventDefault();
+        const res = await checkDuplicate(username);
+        if(res) {
+            alert('유효하지 않은 이름입니다, 다시 설정해주세요.');
+            setError('username', {
+                message: '유효하지 않은 이름입니다.'
+            })
+        }
     }
 
     return (
@@ -50,7 +57,10 @@ function SignUp() {
                     <form onSubmit={handleSubmit(onSubmit)}>
                         <BtnForm text="이름" fontSize={28} btnText='중복확인' register={{...register('username', {
                             required: '이름을 입력해주세요.',
-                        })}}/>
+                            validate: {
+                                duplicate: async (value) => await checkDuplicate(value)? '유효하지 않은 이름입니다.' : true
+                            }
+                        })}} onClick={checkUsername}/>
                         <ErrorArea>{errors.username?.message}</ErrorArea>
                         <Form text="아이디" fontSize={28} register={{...register('id', {
                             required: '아이디를 입력해주세요.',

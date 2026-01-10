@@ -4,6 +4,7 @@ interface IButton {
     text: string,
     fontSize: number,
     style?: Object,
+    onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>,
 }
 
 const Btn = styled.button`
@@ -20,10 +21,10 @@ const Btn = styled.button`
     }
 `;
 
-function Button({text, fontSize, style}:IButton) {
+function Button({text, fontSize, style, onClick}:IButton) {
 
     return (
-        <Btn style={{fontSize, ...style}}>{text}</Btn>
+        <Btn style={{fontSize, ...style}} onClick={onClick}>{text}</Btn>
     );
 }
 

@@ -25,15 +25,16 @@ interface IForm {
     fontSize?: number,
     btnText: string,
     register?: Object,
+    onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>,
 }
 
-function BtnForm({text, fontSize, btnText, register}:IForm) {
+function BtnForm({text, fontSize, btnText, register, onClick}:IForm) {
     return (
         <div style={{boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
             <TextArea>{text}</TextArea>
             <span style={{width: '100%', height: 80, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, boxSizing: 'border-box'}}>
                 <Input style={{fontSize: fontSize? fontSize : 20}} {...register}/>
-                <Button text={btnText} fontSize={24} style={{width: '15%', height: 80, boxSizing: 'border-box'}}/>
+                <Button text={btnText} fontSize={24} style={{width: '15%', height: 80, boxSizing: 'border-box'}} onClick={onClick}/>
             </span>
         </div>
     );
