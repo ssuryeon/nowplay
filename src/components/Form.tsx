@@ -28,7 +28,7 @@ interface IForm {
 
 function Form({text, fontSize, register}:IForm) {
     return (
-        <div style={{boxSizing: 'border-box'}}>
+        <div style={{boxSizing: 'border-box', marginBottom: 15}}>
             <TextArea>{text}</TextArea>
             <Input style={{fontSize: fontSize? fontSize : 20}} {...register}/>
         </div>

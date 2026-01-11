@@ -1,6 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getFirestore, collection, getDoc, doc, setDoc } from "firebase/firestore";
+import {getAuth, RecaptchaVerifier, signInWithPhoneNumber} from 'firebase/auth';
+import { getFirestore, collection, getDoc, doc, setDoc} from "firebase/firestore";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -51,4 +52,20 @@ export async function insertUser(data:IUser) {
     ...data
   });
   console.log(`${data.username} is inserted.`);
+}
+
+export async function requestPhone(phone:string) {
+  console.log('requestPhone start');
+  const auth = getAuth(app);
+  console.log("auth:", auth);
+  console.log("container:", document.getElementById("recaptcha-container"));
+  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {})
+  signInWithPhoneNumber(auth, phone, window.recaptchaVerifier)
+    .then((confirmationResult) => {
+      console.log('confirmation responded.');
+      window.confirmationResult = confirmationResult;
+    })
+    .catch((error) => {
+      console.log(error);
+    })
 }

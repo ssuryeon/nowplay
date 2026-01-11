@@ -5,6 +5,7 @@ interface IButton {
     fontSize: number,
     style?: Object,
     onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>,
+    id?: string,
 }
 
 const Btn = styled.button`
@@ -21,10 +22,10 @@ const Btn = styled.button`
     }
 `;
 
-function Button({text, fontSize, style, onClick}:IButton) {
+function Button({text, fontSize, style, onClick, id}:IButton) {
 
     return (
-        <Btn style={{fontSize, ...style}} onClick={onClick}>{text}</Btn>
+        <Btn style={{fontSize, ...style}} onClick={onClick} id={id}>{text}</Btn>
     );
 }
 

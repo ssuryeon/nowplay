@@ -26,15 +26,16 @@ interface IForm {
     btnText: string,
     register?: Object,
     onClick?: (e: React.MouseEvent<HTMLElement, MouseEvent>) => Promise<void>,
+    id?: string,
 }
 
-function BtnForm({text, fontSize, btnText, register, onClick}:IForm) {
+function BtnForm({text, fontSize, btnText, register, onClick, id}:IForm) {
     return (
-        <div style={{boxSizing: 'border-box', display: 'flex', flexDirection: 'column'}}>
+        <div style={{boxSizing: 'border-box', display: 'flex', flexDirection: 'column', marginBottom: 15}}>
             <TextArea>{text}</TextArea>
             <span style={{width: '100%', height: 80, display: 'flex', flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginTop: 10, boxSizing: 'border-box'}}>
                 <Input style={{fontSize: fontSize? fontSize : 20}} {...register}/>
-                <Button text={btnText} fontSize={24} style={{width: '15%', height: 80, boxSizing: 'border-box'}} onClick={onClick}/>
+                <Button text={btnText} fontSize={24} style={{width: '15%', height: 80, boxSizing: 'border-box'}} onClick={onClick} id={id}/>
             </span>
         </div>
     );
