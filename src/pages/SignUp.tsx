@@ -5,7 +5,7 @@ import BtnForm from '../components/BtnForm';
 import Button from '../components/Button';
 import VerifyModal from '../components/VerifyModal';
 import {useForm} from 'react-hook-form';
-import {checkDuplicate, insertUser, IUser, requestPhone, createUser} from '../firebase';
+import {checkDuplicate, insertUser, IUser, requestPhone, createUser, certifyPhone} from '../firebase';
 import React, {useState, useEffect} from 'react';
 
 const ErrorArea = styled.div`
@@ -32,11 +32,14 @@ function SignUp() {
     const phone = watch('phone');
     const [verifyNum, setVerifyNum] = useState('');
     const [showModal, setShowModal] = useState(false);
+    const [vid, setVid] = useState('');
 
-    useEffect(() => {
-        if(!showModal) return;
-        else requestPhone(phone);
-    }, [showModal, phone])
+    // useEffect(() => {
+    //     if(!showModal) return;
+    //     else {
+    //         requestPhone(phone);
+    //     }
+    // }, [showModal, phone])
     
     const checkUsername = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
@@ -53,6 +56,9 @@ function SignUp() {
     const verifyPhone = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
         setShowModal(true);
+        const id = await requestPhone(phone);
+        if(id) setVid(id);
+        else alert('유효하지 않은 전화번호입니다.');
     }
     const onChange= (e:React.FormEvent<HTMLInputElement>) => {
         setVerifyNum(e.currentTarget.value);
@@ -60,15 +66,9 @@ function SignUp() {
     const onClick = (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
         const code = verifyNum;
-        window.confirmationResult.confirm(code).then((result) => {
-            console.log(result);
-            setShowModal(false);
-            console.log('전화번호 인증 완료');
-        })
-        .catch((error) => {
-            console.log(error);
-            alert('전화번호 인증 오류 발생');
-        })
+        var phoneCredential = certifyPhone(vid, code);
+        console.log(phoneCredential);
+        setShowModal(false);
     }
 
     const onSubmit = async (data:IUser) => {
@@ -134,7 +134,7 @@ function SignUp() {
                     </Container>
                 </div>
             </div>
-            {showModal? <VerifyModal value={verifyNum} onChange={onChange} onClick={onClick}/> : null}
+            <VerifyModal value={verifyNum} onChange={onChange} onClick={onClick} visible={showModal}/>
         </>
     );
 }

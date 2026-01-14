@@ -38,13 +38,14 @@ interface iVerifyModal {
     value: string,
     onChange: any,
     onClick: any,
+    visible: boolean,
 }
 
-function VerifyModal({value, onChange, onClick}:iVerifyModal) {
+function VerifyModal({value, onChange, onClick, visible}:iVerifyModal) {
     const theme = useTheme();
     
     return (
-        <div style={{width: '100%', height: '100%', backgroundColor: '#00000079', position: 'fixed', top: 0, left: 0}}>
+        <div style={{width: '100%', height: '100%', backgroundColor: '#00000079', position: 'fixed', top: 0, left: 0, display: visible? 'block' : 'none'}}>
             <Modal>
                 <form style={{display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'center'}}>
                     <span style={{fontSize: 20, color: theme.black, marginBottom: 20}}>인증코드를 입력해주세요.</span>

@@ -59,15 +59,31 @@ export async function requestPhone(phone:string) {
   const auth = getAuth(app);
   console.log("auth:", auth);
   console.log("container:", document.getElementById("recaptcha-container"));
-  window.recaptchaVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
-  signInWithPhoneNumber(auth, phone, window.recaptchaVerifier)
-    .then((confirmationResult) => {
-      console.log('confirmation responded.');
-      window.confirmationResult = confirmationResult;
+  var appVerifier = new RecaptchaVerifier(auth, 'recaptcha-container', {});
+  window.recaptchaVerifier = appVerifier;
+  var provider = new PhoneAuthProvider(auth);
+  let res;
+  provider.verifyPhoneNumber(phone, appVerifier)
+    .then((value) => {
+      console.log('verification id: ', value);
+      res = value;
     })
     .catch((error) => {
-      console.log(error);
+      console.log('phone verification error: ', error);
+      res = null;
     })
+    return res;
+}
+
+export async function certifyPhone(verificationId:string, verificationCode:string) {
+  console.log('certifyPhone start');
+  var phoneCredential;
+  try {
+    phoneCredential = PhoneAuthProvider.credential(verificationId, verificationCode)
+  } catch(error) {
+    alert(`올바른 코드를 입력해주세요.`);
+  }
+  return phoneCredential;
 }
 
 export async function createUser(email:string, password:string) {
