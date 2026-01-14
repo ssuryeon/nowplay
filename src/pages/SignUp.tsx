@@ -5,7 +5,7 @@ import BtnForm from '../components/BtnForm';
 import Button from '../components/Button';
 import VerifyModal from '../components/VerifyModal';
 import {useForm} from 'react-hook-form';
-import {checkDuplicate, insertUser, IUser, requestPhone} from '../firebase';
+import {checkDuplicate, insertUser, IUser, requestPhone, createUser} from '../firebase';
 import React, {useState, useEffect} from 'react';
 
 const ErrorArea = styled.div`
@@ -28,21 +28,20 @@ function SignUp() {
             phone: '',
         }
     });
-    const onSubmit = async (data:IUser) => {
-        if(data.password != data.confirmPassword) {
-            setError('confirmPassword', {
-                message: '비밀번호와 일치하지 않습니다.',
-            }, {shouldFocus: true})
-        }
-        else {
-            console.log(data);
-            insertUser(data);
-        }
-    }
     const username = watch('username');
+    const phone = watch('phone');
+    const [verifyNum, setVerifyNum] = useState('');
+    const [showModal, setShowModal] = useState(false);
+
+    useEffect(() => {
+        if(!showModal) return;
+        else requestPhone(phone);
+    }, [showModal, phone])
+    
     const checkUsername = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
         const res = await checkDuplicate(username);
+        console.log(res);
         if(res) {
             alert('유효하지 않은 이름입니다, 다시 설정해주세요.');
             setError('username', {
@@ -50,18 +49,11 @@ function SignUp() {
             })
         }
     }
-    const phone = watch('phone');
-    const [showModal, setShowModal] = useState(false);
-    useEffect(() => {
-        if(!showModal) return;
-        else requestPhone(phone);
-    }, [showModal, phone])
+
     const verifyPhone = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
         setShowModal(true);
     }
-    
-    const [verifyNum, setVerifyNum] = useState('');
     const onChange= (e:React.FormEvent<HTMLInputElement>) => {
         setVerifyNum(e.currentTarget.value);
     }
@@ -79,6 +71,18 @@ function SignUp() {
         })
     }
 
+    const onSubmit = async (data:IUser) => {
+        if(data.password != data.confirmPassword) {
+            setError('confirmPassword', {
+                message: '비밀번호와 일치하지 않습니다.',
+            }, {shouldFocus: true})
+        }
+        else {
+            console.log(data);
+            // insertUser(data);
+            createUser(data.email, data.password);
+        }
+    }
     return (
         <>
             <div style={{width: '100%', height: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', boxSizing: 'border-box'}}>

@@ -48,7 +48,7 @@ function VerifyModal({value, onChange, onClick}:iVerifyModal) {
             <Modal>
                 <form style={{display: 'flex', height: '100%', flexDirection: 'column', justifyContent: 'center'}}>
                     <span style={{fontSize: 20, color: theme.black, marginBottom: 20}}>인증코드를 입력해주세요.</span>
-                    <div id='recaptcha-container'></div>
+                    <div id='recaptcha-container' style={{marginBottom: 10}}></div>
                     <Input value={value} onChange={onChange}/>
                     <Btn onClick={onClick}>제출하기</Btn>
                 </form>
