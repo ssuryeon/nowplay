@@ -5,7 +5,7 @@ import BtnForm from '../components/BtnForm';
 import Button from '../components/Button';
 import VerifyModal from '../components/VerifyModal';
 import {useForm} from 'react-hook-form';
-import {checkDuplicate, insertUser, IUser, requestPhone, createUser, certifyPhone} from '../firebase';
+import {checkDuplicate, IUser, requestPhone, createUser, certifyPhone} from '../firebase';
 import React, {useState, useEffect} from 'react';
 
 const ErrorArea = styled.div`
@@ -33,13 +33,19 @@ function SignUp() {
     const [verifyNum, setVerifyNum] = useState('');
     const [showModal, setShowModal] = useState(false);
     const [vid, setVid] = useState('');
+    const [pcredential, setPcredential] = useState<any>(null);
 
-    // useEffect(() => {
-    //     if(!showModal) return;
-    //     else {
-    //         requestPhone(phone);
-    //     }
-    // }, [showModal, phone])
+    useEffect(() => {
+        if(!showModal) return;
+        const rid = requestAnimationFrame(async () => {
+            const id = await requestPhone(phone);
+            console.log('requestPhone result: ', id);
+            if(id) setVid(id);
+            else alert('유효하지 않은 전화번호입니다.');
+        });
+
+        return () => cancelAnimationFrame(rid);
+    }, [showModal, phone])
     
     const checkUsername = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
@@ -51,14 +57,12 @@ function SignUp() {
                 message: '유효하지 않은 이름입니다.'
             })
         }
+        else alert('유효한 이름입니다.');
     }
 
     const verifyPhone = async (e:React.MouseEvent<HTMLElement, MouseEvent>) => {
         e.preventDefault();
         setShowModal(true);
-        const id = await requestPhone(phone);
-        if(id) setVid(id);
-        else alert('유효하지 않은 전화번호입니다.');
     }
     const onChange= (e:React.FormEvent<HTMLInputElement>) => {
         setVerifyNum(e.currentTarget.value);
@@ -67,7 +71,10 @@ function SignUp() {
         e.preventDefault();
         const code = verifyNum;
         var phoneCredential = certifyPhone(vid, code);
-        console.log(phoneCredential);
+        phoneCredential.then((credential) => {
+            console.log(credential);
+            setPcredential(credential);
+        });
         setShowModal(false);
     }
 
@@ -80,7 +87,15 @@ function SignUp() {
         else {
             console.log(data);
             // insertUser(data);
-            createUser(data.email, data.password);
+            console.log('credential: ', pcredential);
+            var signIn = await createUser(data.email, data.password, pcredential);
+            console.log('createUser result: ', signIn);
+            if(!signIn) alert('로그인 오류 발생');
+            else {
+                signIn.then((res:any) => {
+                    console.log(res);
+                })
+            }
         }
     }
     return (
